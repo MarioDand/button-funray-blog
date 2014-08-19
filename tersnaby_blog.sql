@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
+-- version 4.1.8
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: 
--- Версия на сървъра: 5.6.16
--- PHP Version: 5.5.11
+-- Host: localhost
+-- Generation Time: 19 авг 2014 в 17:51
+-- Версия на сървъра: 5.1.66-rel14.2-log
+-- PHP Version: 5.4.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `blog`
+-- Database: `tersnaby_blog`
 --
 
 -- --------------------------------------------------------
@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
 
 CREATE TABLE IF NOT EXISTS `posts` (
   `post_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `post_count` int(10) NOT NULL,
   `post_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `post_desc` text COLLATE utf8_unicode_ci,
   `post_cont` text COLLATE utf8_unicode_ci,
@@ -70,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `posts_tags` (
 
 CREATE TABLE IF NOT EXISTS `tags` (
   `tag_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `tag_title` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tag_title` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`tag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
