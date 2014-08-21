@@ -5,7 +5,25 @@
     <meta charset="UTF-8">
     <style>
 
-        div{
+
+
+        main,header{
+            width: 60%;
+            margin-left: 20%;
+        }
+
+        main{
+            min-height: 300px;
+        }
+
+        header{
+            border: 1px solid black;
+            margin-bottom: 15px;
+            height: 100px;
+        }
+
+
+        #blog-post{
             border: 1px solid black;
             width: 70%;
             margin: 10px;
@@ -13,18 +31,30 @@
             display: inline-block;
         }
 
-        main,header{
-            width: 60%;
+        #text-comments, #submit {
+
             margin-left: 20%;
+            margin-bottom: 10px;
+            float: left;
+            display: inline-block;
+
+            width:50%;
+            height:100px;
         }
-        main{
-            min-height: 300px;
+
+        .comment-entry {
+
+            margin-left: 20%;
+            margin-bottom: 10px;
+            float: left;
+            display: inline-block;
+
+            width:50%;
+            height:100px;
+            border: 1px solid grey;
         }
-        header{
-            border: 1px solid black;
-            margin-bottom: 15px;
-            height: 100px;
-        }
+
+
         footer{
             margin-top: 15px;
             height: 50px;
@@ -33,6 +63,7 @@
             border: 1px solid black;
             display: inline-block;
         }
+
         aside{
             height: 100%;
             width: 24%;
@@ -52,12 +83,12 @@
     <a href="addpost.php">New post</a>
 </header>
 <main>
-    <section>
+    <section id="blog-post">
         <?php
         include "database.php";
 
         $id = $_GET['id'];
-        echo $id."<br>";
+
         $query="SELECT post_title, post_desc, post_cont, post_date FROM posts WHERE post_id = $id";
 
         $sth =  $db->query($query);
@@ -68,21 +99,63 @@
             $cont = $row['post_cont'];
             $date = $row['post_date'];
 
-            echo "<div class='posts'>";
+            //echo "<div class='posts'>";
             echo "<p>$title</p>";
             echo "<p>$desc</p>";
             echo "<p>$cont</p>";
             echo "<p>$date</p>";
-            echo "</div>";
+            //echo "</div>";
 
         ?>
     </section>
-    <aside>
 
+    <section id="comments">
+        <form action="#" method="post">
+            <textarea id="text-comments" name="text-comments" placeholder="enter comments"></textarea><br>
+            <input id="submit" type="submit" value="Submit">
+        </form>
+
+
+    <?php
+        error_reporting(E_ALL ^ E_NOTICE);
+        $comment = trim($_POST['text-comments']);
+
+        if (isset($comment) && strlen($comment) > 0)
+        {
+            //echo $comment;
+            $sql = "INSERT INTO comments ( comment_content, post_id)
+                    VALUES ( '$comment', '$id')";
+
+            $query = $db->prepare( $sql );
+
+            $query->execute(array(':comment_content' => $comment));
+        }
+
+        $query="SELECT comment_content, post_id FROM comments ORDER BY comment_id DESC";
+
+        $commentsValues = $db->query($query);
+
+        while ($row = $commentsValues->fetch(PDO::FETCH_ASSOC))
+        {
+            $text = $row['comment_content'];
+            $postId = $row['post_id'];
+
+            if ($postId == $id)
+            {
+            echo "<div class='comment-entry'>";
+            echo "<p>$text</p>";
+            echo "</div>";
+            }
+        }
+
+    ?>
+    </section>
+    <aside>
+        <p>Sidebar</p>
     </aside>
 </main>
 <footer>
-
+    <p>Footer</p>
 </footer>
 </body>
 </html>
