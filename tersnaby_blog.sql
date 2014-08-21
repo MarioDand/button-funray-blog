@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 19 авг 2014 в 17:51
+-- Generation Time: 21 авг 2014 в 13:10
 -- Версия на сървъра: 5.1.66-rel14.2-log
 -- PHP Version: 5.4.23
 
@@ -43,14 +43,23 @@ CREATE TABLE IF NOT EXISTS `comments` (
 
 CREATE TABLE IF NOT EXISTS `posts` (
   `post_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `post_count` int(10) NOT NULL,
+  `post_count` int(10) NOT NULL DEFAULT '0',
   `post_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `post_desc` text COLLATE utf8_unicode_ci,
   `post_cont` text COLLATE utf8_unicode_ci,
+  `post_url` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `post_date` datetime DEFAULT NULL,
-  `user_id` int(11) unsigned NOT NULL,
+  `user_id` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`post_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Схема на данните от таблица `posts`
+--
+
+INSERT INTO `posts` (`post_id`, `post_count`, `post_title`, `post_desc`, `post_cont`, `post_url`, `post_date`, `user_id`) VALUES
+(1, 0, 'dwaaw', 'dwawa', 'dwadwawdawawd', '', '2014-08-20 17:55:46', 0),
+(2, 0, 'daw', 'dwaaw', 'gdsggsdgdgssg', '', '2014-08-20 17:58:40', 0);
 
 -- --------------------------------------------------------
 
