@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 21 авг 2014 в 13:10
+-- Generation Time: 21 авг 2014 в 15:38
 -- Версия на сървъра: 5.1.66-rel14.2-log
 -- PHP Version: 5.4.23
 
@@ -47,7 +47,6 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `post_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `post_desc` text COLLATE utf8_unicode_ci,
   `post_cont` text COLLATE utf8_unicode_ci,
-  `post_url` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
   `post_date` datetime DEFAULT NULL,
   `user_id` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`post_id`)
@@ -57,9 +56,9 @@ CREATE TABLE IF NOT EXISTS `posts` (
 -- Схема на данните от таблица `posts`
 --
 
-INSERT INTO `posts` (`post_id`, `post_count`, `post_title`, `post_desc`, `post_cont`, `post_url`, `post_date`, `user_id`) VALUES
-(1, 0, 'dwaaw', 'dwawa', 'dwadwawdawawd', '', '2014-08-20 17:55:46', 0),
-(2, 0, 'daw', 'dwaaw', 'gdsggsdgdgssg', '', '2014-08-20 17:58:40', 0);
+INSERT INTO `posts` (`post_id`, `post_count`, `post_title`, `post_desc`, `post_cont`, `post_date`, `user_id`) VALUES
+(1, 0, 'dwaaw', 'dwawa', 'dwadwawdawawd', '2014-08-20 17:55:46', 0),
+(2, 0, 'daw', 'dwaaw', 'gdsggsdgdgssg', '2014-08-20 17:58:40', 0);
 
 -- --------------------------------------------------------
 
