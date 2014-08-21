@@ -24,8 +24,8 @@ include "database.php";
 
 if(isset($_POST['user'])&&isset($_POST['pass'])){
 
-    $Name = $_POST['user'];
-    $Password = $_POST['pass'];
+    $Name = htmlentities($_POST['user']);
+    $Password = htmlentities($_POST['pass']);
 
     if (($Name !== '') && ($Password !== '')) {
 
