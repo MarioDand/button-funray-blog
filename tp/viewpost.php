@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My blog</title>
+    <title>!!!Post title - to add dynamic title according to the title!!!</title>
     <meta charset="UTF-8">
     <style>
 
@@ -22,7 +22,7 @@
         }
         header{
             border: 1px solid black;
-           margin-bottom: 15px;
+            margin-bottom: 15px;
             height: 100px;
         }
         footer{
@@ -34,9 +34,9 @@
             display: inline-block;
         }
         aside{
-           height: 100%;
+            height: 100%;
             width: 24%;
-display: inline-block;
+            display: inline-block;
             margin-top: 10px;
             margin-left: 10px;
             min-height: 275px;
@@ -53,32 +53,29 @@ display: inline-block;
 </header>
 <main>
     <section>
-    <?php
-     include "database.php";
+        <?php
+        include "database.php";
 
+        $id = $_GET['id'];
+        echo $id."<br>";
+        $query="SELECT post_title, post_desc, post_cont, post_date FROM posts WHERE post_id = $id";
 
-    $query="SELECT post_title, post_desc, post_cont, post_id, post_date FROM posts WHERE post_date <= now()
-            ORDER BY post_date DESC, post_date DESC";
+        $sth =  $db->query($query);
+        $row = $sth->fetch(PDO::FETCH_ASSOC);
 
-    $sth =  $db->query($query);
+            $title = $row['post_title'];
+            $desc = $row['post_desc'];
+            $cont = $row['post_cont'];
+            $date = $row['post_date'];
 
-    while ($row = $sth->fetch(PDO::FETCH_ASSOC))
-    {
-        $title = $row['post_title'];
-        $desc = $row['post_desc'];
-        $cont = $row['post_cont'];
-        $date = $row['post_date'];
-        $postId = $row['post_id'];
+            echo "<div class='posts'>";
+            echo "<p>$title</p>";
+            echo "<p>$desc</p>";
+            echo "<p>$cont</p>";
+            echo "<p>$date</p>";
+            echo "</div>";
 
-        echo "<div class='posts'>";
-        echo "<p><a href='viewpost.php?id=$postId'>$title</a></p>";
-        echo "<p>$desc</p>";
-        echo "<p>$cont</p>";
-        echo "<p>$date</p>";
-        echo "</div>";
-    }
-
-     ?>
+        ?>
     </section>
     <aside>
 
