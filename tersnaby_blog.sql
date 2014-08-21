@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 21 авг 2014 в 15:38
+-- Generation Time: 21 авг 2014 в 16:58
 -- Версия на сървъра: 5.1.66-rel14.2-log
 -- PHP Version: 5.4.23
 
@@ -86,10 +86,10 @@ CREATE TABLE IF NOT EXISTS `tags` (
 -- --------------------------------------------------------
 
 --
--- Структура на таблица `user`
+-- Структура на таблица `users`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE IF NOT EXISTS `users` (
   `user_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `user_mail` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -99,10 +99,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
 --
--- Схема на данните от таблица `user`
+-- Схема на данните от таблица `users`
 --
 
-INSERT INTO `user` (`user_id`, `user_name`, `user_mail`, `user_pass`, `user_rights`) VALUES
+INSERT INTO `users` (`user_id`, `user_name`, `user_mail`, `user_pass`, `user_rights`) VALUES
 (1, 'Mitko', 'mitko@abv.bg', '123456', 'admin');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
