@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `post_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `post_desc` text COLLATE utf8_unicode_ci,
   `post_cont` text COLLATE utf8_unicode_ci,
-  `post_url` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  `post_tags` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `post_date` datetime DEFAULT NULL,
   `user_id` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`post_id`)
@@ -64,22 +64,12 @@ INSERT INTO `posts` (`post_id`, `post_count`, `post_title`, `post_desc`, `post_c
 -- --------------------------------------------------------
 
 --
--- Структура на таблица `posts_tags`
---
-
-CREATE TABLE IF NOT EXISTS `posts_tags` (
-  `post_id` int(11) unsigned NOT NULL,
-  `tag_id` int(11) unsigned NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Структура на таблица `tags`
 --
 
 CREATE TABLE IF NOT EXISTS `tags` (
   `tag_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `tag_count` int(11) unsigned NOT NULL ,
   `tag_title` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`tag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
