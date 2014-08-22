@@ -5,23 +5,19 @@
     <meta charset="UTF-8">
     <style>
 
-        div{
-            border: 1px solid black;
-            width: 70%;
-            margin: 10px;
-            float:left;
-            display: inline-block;
-        }
+        
 
-        main,header{
+       main,header{
             width: 60%;
             margin-left: 20%;
+            border: 1px solid black;
         }
         main{
-            min-height: 300px;
+           height: 100%;
+            display: inline-block;
         }
         header{
-            border: 1px solid black;
+
            margin-bottom: 15px;
             height: 100px;
         }
@@ -33,14 +29,26 @@
             border: 1px solid black;
             display: inline-block;
         }
-        aside{
-           height: 100%;
-            width: 24%;
-display: inline-block;
-            margin-top: 10px;
-            margin-left: 10px;
-            min-height: 275px;
+       aside{
+            display: inline-block;
+            width: 20%;
+           top:15px;
+            bottom:0;
+            height: 200px;
+
+
+            margin:2%;
+margin-top: 10px;
             border: 1px solid black;
+        }
+        .posts{
+            border: 1px solid black;
+            width: 70%;
+
+            margin: 2%;
+            margin-top: 10px;
+            float:left;
+            display: inline-block;
         }
     </style>
 </head>
@@ -57,30 +65,53 @@ display: inline-block;
      include "database.php";
 
 
-    $query="SELECT post_title, post_desc, post_cont, post_date FROM posts WHERE post_date <= now()
-ORDER BY post_date DESC, post_date DESC";
+    $query="SELECT post_title, post_desc, post_cont, post_id, post_date FROM posts WHERE post_date <= now()
+            ORDER BY post_date DESC, post_date DESC";
 
     $sth =  $db->query($query);
+
     while ($row = $sth->fetch(PDO::FETCH_ASSOC))
     {
         $title = $row['post_title'];
         $desc = $row['post_desc'];
         $cont = $row['post_cont'];
         $date = $row['post_date'];
+        $postId = $row['post_id'];
 
         echo "<div class='posts'>";
-        echo "<p>$title</p>";
+        echo "<p><a href='viewpost.php?id=$postId'>$title</a></p>";
         echo "<p>$desc</p>";
         echo "<p>$cont</p>";
         echo "<p>$date</p>";
         echo "</div>";
     }
 
-
      ?>
     </section>
     <aside>
+        Most popular tags:<br>
+<?php
+$query="SELECT tag_title, tag_count FROM tags ORDER BY tag_count DESC";
+$sth =  $db->query($query);
+while ($row = $sth->fetch(PDO::FETCH_ASSOC))
+{
+    $title = $row['tag_title'];
+    $count = $row['tag_count'];
+   if($count>10){
+       $size=10;
+   }else{
+       $size=$count*5;
+   }
+?>
+   <a href='blog.php?tag=<?=$title?>' style="text-decoration:none;font-size:<?=$size?>px"><?=$title?></a>
+<?php
+}
 
+
+
+
+
+?>
     </aside>
 </main>
 <footer>
