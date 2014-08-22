@@ -22,28 +22,28 @@
 include "database.php";
 
 
-if(isset($_POST['user'])&&isset($_POST['pass'])){
+if (!isset($_SESSION)) {
+    session_start();
+}
 
-    $Name = htmlentities($_POST['user']);
-    $Password = htmlentities($_POST['pass']);
+if (isset($_POST['user']) && isset($_POST['pass'])) {
+
+    $Name = htmlentities(trim($_POST['user']));
+    $Password = htmlentities(trim($_POST['pass']));
 
     if (($Name !== '') && ($Password !== '')) {
 
-        $query = "SELECT user_name, user_pass FROM users where user_name = '$Name' AND user_pass = '$Password'";
-
+        $query = "SELECT user_name FROM users where user_name = '$Name'";
         $sth = $db->query($query);
-
         $row = $sth->fetch(PDO::FETCH_ASSOC);
-        var_dump($row);
+        $checkPass = crypt($Password, $row['user_pass']);
 
-        if($row['user_name']!== '' AND $row['user_pass']!== ''){
-
+        if (($checkPass === $row['user_pass']) && ($row['user_name'] !== '' AND $row['user_pass'] !== '')) {
             $_SESSION['user_name'] = $row['user_pass'];
             echo "Successfully login";
+            header('Location: index.php');
+        } else {
+            echo "Sorry... You entered wrong Username or Password... Please retry...";
         }
-
-
-    } else {
-        echo "Sorry... You entered wrong Username or Password... Please retry...";
     }
 }
