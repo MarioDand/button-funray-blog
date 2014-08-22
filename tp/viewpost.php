@@ -122,13 +122,14 @@
 
         if (isset($comment) && strlen($comment) > 0)
         {
-            //echo $comment;
             $sql = "INSERT INTO comments ( comment_content, post_id)
                     VALUES ( '$comment', '$id')";
 
             $query = $db->prepare( $sql );
 
             $query->execute(array(':comment_content' => $comment));
+
+            header('Location: viewpost.php?id='.$id);
         }
 
         $query="SELECT comment_content, post_id FROM comments ORDER BY comment_id DESC";
