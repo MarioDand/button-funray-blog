@@ -15,6 +15,7 @@
 <?php
 include "database.php";
 date_default_timezone_get();
+session_start();
 
 class Post
 {
