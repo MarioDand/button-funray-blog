@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <style>
 
-        
 
-       main,header{
+
+        main,header{
             width: 60%;
             margin-left: 20%;
             border: 1px solid black;
@@ -29,7 +29,7 @@
             border: 1px solid black;
             display: inline-block;
         }
-       aside{
+        aside{
             display: inline-block;
             width: 20%;
            top:15px;
@@ -64,54 +64,63 @@ margin-top: 10px;
     <?php
      include "database.php";
 
+    if(isset($_GET['tag'])){
+        $tag = $_GET['tag'];
 
-    $query="SELECT post_title, post_desc, post_cont, post_id, post_date FROM posts WHERE post_date <= now()
-            ORDER BY post_date DESC, post_date DESC";
+        $query="SELECT post_id ,post_date,post_desc,post_cont,post_title, post_tags
+        FROM posts WHERE (post_tags)
+        LIKE '%$tag%' ORDER BY post_date DESC, post_date DESC ";
 
+
+    }else{
+
+    $query="SELECT post_title, post_desc, post_cont, post_date, post_tags FROM posts WHERE post_date <= now()
+ORDER BY post_date DESC, post_date DESC";
+    }
     $sth =  $db->query($query);
-
     while ($row = $sth->fetch(PDO::FETCH_ASSOC))
     {
         $title = $row['post_title'];
         $desc = $row['post_desc'];
         $cont = $row['post_cont'];
         $date = $row['post_date'];
-        $postId = $row['post_id'];
+        $tagarray = explode(" ",$row['post_tags']);
 
-        echo "<div class='posts'>";
-        echo "<p><a href='viewpost.php?id=$postId'>$title</a></p>";
+        echo "<article class='posts'>";
+        echo "<p>$title</p>";
         echo "<p>$desc</p>";
         echo "<p>$cont</p>";
         echo "<p>$date</p>";
-        echo "</div>";
+
+
+        foreach($tagarray as $value){
+
+           echo "<a href='index.php?tag=$value'  style='text-decoration:none'>$value</a>";
+            echo " ";
+
+        }
+        echo "</article>";
     }
+
 
      ?>
     </section>
     <aside>
         Most popular tags:<br>
-<?php
-$query="SELECT tag_title, tag_count FROM tags ORDER BY tag_count DESC";
-$sth =  $db->query($query);
-while ($row = $sth->fetch(PDO::FETCH_ASSOC))
-{
-    $title = $row['tag_title'];
-    $count = $row['tag_count'];
-   if($count>10){
-       $size=10;
-   }else{
-       $size=$count*5;
-   }
-?>
-   <a href='blog.php?tag=<?=$title?>' style="text-decoration:none;font-size:<?=$size?>px"><?=$title?></a>
-<?php
-}
+        <?php
+        $query="SELECT tag_title, tag_count FROM tags ORDER BY tag_count DESC";
+        $sth =  $db->query($query);
+        while ($row = $sth->fetch(PDO::FETCH_ASSOC))
+        {
+            $title = $row['tag_title'];
+            $count = $row['tag_count'];
 
+            ?>
+            <a href='index.php?tag=<?=$title?>' style="text-decoration:none;"><?=$title?> (<?=$count?>)</a><br>
+        <?php
+        }
 
-
-
-
-?>
+        ?>
     </aside>
 </main>
 <footer>
