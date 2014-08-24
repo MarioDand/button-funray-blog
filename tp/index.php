@@ -74,7 +74,7 @@ margin-top: 10px;
 
     }else{
 
-    $query="SELECT post_title, post_desc, post_cont, post_date, post_tags FROM posts WHERE post_date <= now()
+    $query="SELECT post_title, post_desc, post_cont, post_date,post_id, post_tags FROM posts WHERE post_date <= now()
 ORDER BY post_date DESC, post_date DESC";
     }
     $sth =  $db->query($query);
@@ -84,10 +84,11 @@ ORDER BY post_date DESC, post_date DESC";
         $desc = $row['post_desc'];
         $cont = $row['post_cont'];
         $date = $row['post_date'];
+		$postId = $row['post_id'];
         $tagarray = explode(" ",$row['post_tags']);
 
         echo "<article class='posts'>";
-        echo "<p>$title</p>";
+        echo "<p><a href='viewpost.php?id=$postId'>$title</a></p>";
         echo "<p>$desc</p>";
         echo "<p>$cont</p>";
         echo "<p>$date</p>";
