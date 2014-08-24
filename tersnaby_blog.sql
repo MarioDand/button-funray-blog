@@ -47,10 +47,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `post_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `post_desc` text COLLATE utf8_unicode_ci,
   `post_cont` text COLLATE utf8_unicode_ci,
-<<<<<<< HEAD
   `post_tags` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-=======
->>>>>>> origin/master
   `post_date` datetime DEFAULT NULL,
   `user_id` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`post_id`)
