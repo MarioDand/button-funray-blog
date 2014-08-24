@@ -70,7 +70,7 @@ if($_POST && isset($_POST["title"]) && isset($_POST["desc"])&& isset($_POST["con
 
 
 
-  header('Location: blog.php?action=updated');
+  header('Location: index.php?action=updated');
 
 }
 ?>
