@@ -39,8 +39,8 @@ if($_POST && isset($_POST["title"]) && isset($_POST["desc"])&& isset($_POST["con
 
     $post->tags= $_POST['tags'];
     $exploded= explode(" ",$post->tags);
-    $post->tags= array_unique($exploded);
-    $post->tags= implode(" ",$post->tags);
+    $exploded= array_unique($exploded);
+    $post->tags = " ".$post->tags;
 
     $sql = "INSERT INTO posts
  ( post_title, post_desc, post_cont, post_date,post_tags )
@@ -60,11 +60,12 @@ if($_POST && isset($_POST["title"]) && isset($_POST["desc"])&& isset($_POST["con
 
 
     for($i=0;$i<count($exploded);$i++){
+
         $sql = "INSERT INTO tags ( tag_title) VALUES ( '$exploded[$i]') ON DUPLICATE KEY UPDATE tag_count=tag_count+1" ;
         $query = $db->prepare( $sql );
 
         $query->execute(array(
-            ':tag_title' => $post->tags[$i],
+            ':tag_title' => $exploded[$i]
         ));
     }
 

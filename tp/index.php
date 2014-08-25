@@ -34,7 +34,6 @@
             width: 20%;
            top:15px;
             bottom:0;
-            height: 200px;
 
 
             margin:2%;
@@ -50,11 +49,14 @@ margin-top: 10px;
             float:left;
             display: inline-block;
         }
+        #pages{
+            float: left;
+        }
     </style>
 </head>
 <body>
 <header>
-    <h1><a href="index.php">MY BLOG</a></h1>
+    <h1>MY BLOG</h1>
     <a href="register.php">Register</a>
     <a href="login.php">Login</a>
     <a href="addpost.php">New post</a>
@@ -62,20 +64,38 @@ margin-top: 10px;
 <main>
     <section>
     <?php
-
-    include "database.php";
+     include "database.php";
 
     if(isset($_GET['tag'])){
         $tag = $_GET['tag'];
 
-        $query="SELECT post_id ,post_date,post_desc,post_cont,post_title, post_tags
-        FROM posts WHERE (post_tags)LIKE '% $tag %' OR post_tags LIKE '$tag %' OR post_tags LIKE '% $tag' ORDER BY post_date DESC, post_date DESC ";
+        if(isset($_GET['page'])){
 
+        $page =$_GET['page'];
+            $offset =($page-1)*5;
+        $query="SELECT post_id ,post_date,post_desc,post_cont,post_title, post_tags
+        FROM posts WHERE post_tags LIKE '% $tag %' OR post_tags LIKE '$tag %' OR post_tags LIKE '% $tag'
+         ORDER BY post_date DESC LIMIT 5 OFFSET $offset";
+        }else{
+            $query="SELECT post_id ,post_date,post_desc,post_cont,post_title, post_tags
+        FROM posts WHERE post_tags LIKE '% $tag %' OR post_tags LIKE '$tag %' OR post_tags LIKE '% $tag'
+         ORDER BY post_date DESC LIMIT 5";
+
+        }
 
     }else{
+      if(isset($_GET['page'])){
+          $page =$_GET['page'];
+          $offset =($page-1)*5;
+          $query="SELECT post_title, post_desc, post_cont, post_date, post_tags FROM posts WHERE post_date <= now()
+ORDER BY post_date DESC  LIMIT 5 OFFSET $offset";
+      }else{
+        $query="SELECT post_title, post_desc, post_cont, post_date, post_tags FROM posts WHERE post_date <= now()
+ORDER BY post_date DESC LIMIT 5";
+      }
 
-    $query="SELECT post_title, post_desc, post_cont, post_date,post_id,post_count, post_tags FROM posts WHERE post_date <= now()
-ORDER BY post_date DESC, post_date DESC";
+
+
     }
     $sth =  $db->query($query);
     while ($row = $sth->fetch(PDO::FETCH_ASSOC))
@@ -84,34 +104,36 @@ ORDER BY post_date DESC, post_date DESC";
         $desc = $row['post_desc'];
         $cont = $row['post_cont'];
         $date = $row['post_date'];
-		$postId = $row['post_id'];
-        $postCount = $row['post_count'];
         $tagarray = explode(" ",$row['post_tags']);
 
         echo "<article class='posts'>";
-        echo "<p>$postCount</p>";
-        echo "<p><a href='viewpost.php?id=$postId'>$title</a></p>";
+        echo "<p>$title</p>";
         echo "<p>$desc</p>";
         echo "<p>$cont</p>";
         echo "<p>$date</p>";
 
 
         foreach($tagarray as $value){
-
-           echo "<a href='index.php?tag=$value' style='text-decoration:none'>$value</a>";
+          if(isset($_GET['page'])){
+              $page=$_GET['page'];
+           echo "<a href='index.php?tag=$value&page=$page'  style='text-decoration:none'>$value</a>";
             echo " ";
-
+          }else{
+              echo "<a href='index.php?tag=$value'  style='text-decoration:none'>$value</a>";
+              echo " ";
+          }
         }
         echo "</article>";
     }
+     echo "<div id='pages'>";
 
-
+    echo "</div>";
      ?>
     </section>
     <aside>
         Most popular tags:<br>
         <?php
-        $query="SELECT tag_title, tag_count FROM tags ORDER BY tag_count DESC";
+        $query="SELECT tag_title, tag_count FROM tags ORDER BY tag_count DESC LIMIT 10";
         $sth =  $db->query($query);
         while ($row = $sth->fetch(PDO::FETCH_ASSOC))
         {
@@ -124,6 +146,11 @@ ORDER BY post_date DESC, post_date DESC";
         }
 
         ?>
+        <form method="get">
+            <label for="tag">Search tags:</label><br>
+            <input type="text" name="tag" id="tag"><br>
+            <input type="submit">
+        </form>
     </aside>
 </main>
 <footer>
