@@ -68,13 +68,12 @@ margin-top: 10px;
         $tag = $_GET['tag'];
 
         $query="SELECT post_id ,post_date,post_desc,post_cont,post_title, post_tags
-        FROM posts WHERE (post_tags)
-        LIKE '%$tag%' ORDER BY post_date DESC, post_date DESC ";
+        FROM posts WHERE (post_tags)LIKE '% $tag %' OR post_tags LIKE '$tag %' OR post_tags LIKE '% $tag' ORDER BY post_date DESC, post_date DESC ";
 
 
     }else{
 
-    $query="SELECT post_title, post_desc, post_cont, post_date,post_id, post_tags FROM posts WHERE post_date <= now()
+    $query="SELECT post_title, post_desc, post_cont, post_date,post_id,post_count, post_tags FROM posts WHERE post_date <= now()
 ORDER BY post_date DESC, post_date DESC";
     }
     $sth =  $db->query($query);
@@ -85,9 +84,11 @@ ORDER BY post_date DESC, post_date DESC";
         $cont = $row['post_cont'];
         $date = $row['post_date'];
 		$postId = $row['post_id'];
+        $postCount = $row['post_count'];
         $tagarray = explode(" ",$row['post_tags']);
 
         echo "<article class='posts'>";
+        echo "<p>$postCount</p>";
         echo "<p><a href='viewpost.php?id=$postId'>$title</a></p>";
         echo "<p>$desc</p>";
         echo "<p>$cont</p>";
@@ -96,7 +97,7 @@ ORDER BY post_date DESC, post_date DESC";
 
         foreach($tagarray as $value){
 
-           echo "<a href='index.php?tag=$value'  style='text-decoration:none'>$value</a>";
+           echo "<a href='index.php?tag=$value' style='text-decoration:none'>$value</a>";
             echo " ";
 
         }
