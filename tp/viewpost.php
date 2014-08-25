@@ -98,7 +98,7 @@
 
         $postId = $_GET['id'];
 
-        $query="SELECT post_title, post_desc, post_cont, post_date, post_count FROM posts WHERE post_id = $postId";
+        $query="SELECT post_title, post_desc, post_cont, post_date, post_count FROM posts WHERE post_id = '$postId'";
 
         $sth =  $db->query($query);
         $row = $sth->fetch(PDO::FETCH_ASSOC);
@@ -109,12 +109,11 @@
             $date = $row['post_date'];
             $count = $row['post_count'];
 
-            if(!isset($_COOKIE[$id])){
-                $sqlCount = "UPDATE posts SET post_count = post_count + 1 WHERE post_id = $id";
+            if(!isset($_COOKIE[$postId])){
+                $sqlCount = "UPDATE posts SET post_count = post_count + 1 WHERE post_id = '$postId'";
                 $query = $db->prepare($sqlCount);
                 $query->execute(array(':post_count' => $count));
-                // Create a cookie before the response and set it for 30 days
-                setcookie($id, 'count',  time()+(3600*24));
+                setcookie($postId, 'count',  time()+(3600*24));
             }
 
             echo "<p>$count</p>";
