@@ -89,7 +89,7 @@
 
         $id = $_GET['id'];
 
-        $query="SELECT post_title, post_desc, post_cont, post_date FROM posts WHERE post_id = $id";
+        $query="SELECT post_title, post_desc, post_cont, post_date, post_count FROM posts WHERE post_id = $id";
 
         $sth =  $db->query($query);
         $row = $sth->fetch(PDO::FETCH_ASSOC);
@@ -98,8 +98,14 @@
             $desc = $row['post_desc'];
             $cont = $row['post_cont'];
             $date = $row['post_date'];
+            $count = $row['post_count'];
+
+            $sqlCount = "UPDATE posts SET post_count = post_count + 1 WHERE post_id = $id";
+            $query = $db->prepare($sqlCount);
+            $query->execute(array(':post_count' => $count));
 
             //echo "<div class='posts'>";
+            echo "<p>$count</p>";
             echo "<p>$title</p>";
             echo "<p>$desc</p>";
             echo "<p>$cont</p>";
@@ -115,6 +121,9 @@
             <input id="submit" type="submit" value="Submit">
         </form>
 
+        <?php
+
+        ?>
 
     <?php
         error_reporting(E_ALL ^ E_NOTICE);
