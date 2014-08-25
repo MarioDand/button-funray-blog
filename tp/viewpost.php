@@ -109,9 +109,13 @@
             $date = $row['post_date'];
             $count = $row['post_count'];
 
-            $sqlCount = "UPDATE posts SET post_count = post_count + 1 WHERE post_id = $postId";
-            $query = $db->prepare($sqlCount);
-            $query->execute(array(':post_count' => $count));
+            if(!isset($_COOKIE[$id])){
+                $sqlCount = "UPDATE posts SET post_count = post_count + 1 WHERE post_id = $id";
+                $query = $db->prepare($sqlCount);
+                $query->execute(array(':post_count' => $count));
+                // Create a cookie before the response and set it for 30 days
+                setcookie($id, 'count',  time()+(3600*24));
+            }
 
             echo "<p>$count</p>";
             echo "<p>$title</p>";
