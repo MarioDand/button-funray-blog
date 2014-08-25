@@ -54,7 +54,7 @@ margin-top: 10px;
 </head>
 <body>
 <header>
-    <h1>MY BLOG</h1>
+    <h1><a href="index.php">MY BLOG</a></h1>
     <a href="register.php">Register</a>
     <a href="login.php">Login</a>
     <a href="addpost.php">New post</a>
@@ -62,7 +62,8 @@ margin-top: 10px;
 <main>
     <section>
     <?php
-     include "database.php";
+
+    include "database.php";
 
     if(isset($_GET['tag'])){
         $tag = $_GET['tag'];

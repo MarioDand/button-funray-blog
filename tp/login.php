@@ -1,4 +1,4 @@
-<DOCTYPE html>
+<!DOCTYPE html>
     <html>
     <head>
         <title>Login</title>
@@ -33,14 +33,16 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
 
     if (($Name !== '') && ($Password !== '')) {
 
-        $query = "SELECT user_name, user_pass FROM users where user_name = '$Name'";
+        $query = "SELECT user_id, user_name, user_mail, user_pass FROM users where user_name = '$Name'";
         $sth = $db->query($query);
         $row = $sth->fetch(PDO::FETCH_ASSOC);
         $checkPass = crypt($Password, $row['user_pass']);
-        $test = $row['user_pass'];
 
         if (($checkPass === $row['user_pass']) && (($row['user_name'] !== '' && $row['user_pass'] !== ''))) {
-            $_SESSION['user_name'] = $row['user_pass'];
+            $_SESSION['user_id'] = $row['user_id'];
+            $_SESSION['user_name'] = $row['user_name'];
+            $_SESSION['user_mail'] = $row['user_mail'];
+
             echo "Successfully login";
             header('Location: index.php');
         } else {

@@ -76,7 +76,7 @@ if ($_POST && isset($_POST["name"]) && isset($_POST["pass"]) && isset($_POST["co
     if ($validateForm === false) die();
 
     $hashed = create_hash($_POST['pass']);
-    echo $hashed . "<br>";
+
 
     $user = new User;
     $user->name = htmlentities($_POST['name']);
