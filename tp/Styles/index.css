@@ -1,14 +1,12 @@
-main,header{
-    width: 60%;
-    margin-left: 20%;
+main{
+    width: 1000px;
+    margin: 0 auto;
     border: 1px solid black;
 }
-main{
-    height: 100%;
-    display: inline-block;
-}
 header{
-
+    width: 1000px;
+    margin: 0 auto;
+    border: 1px solid black;
     margin-bottom: 15px;
     height: 100px;
 }
@@ -23,23 +21,39 @@ footer{
 aside{
     display: inline-block;
     width: 20%;
-    top:15px;
-    bottom:0;
-
-
-    margin:2%;
+    margin: 2%;
     margin-top: 10px;
     border: 1px solid black;
 }
 .posts,#pages{
     border: 1px solid black;
     width: 70%;
-
     margin: 2%;
     margin-top: 10px;
     float:left;
     display: inline-block;
 }
-a{
+a {
     text-decoration: none;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+html[xmlns] .clearfix {
+    display: block;
+}
+
+* html .clearfix {
+    height: 1%;
 }

@@ -1,22 +1,11 @@
-<html>
-<head>
-    <title>My blog</title>
-    <meta charset="UTF-8">
-   <link type="text/css" rel="stylesheet" href="Styles/index.css">
-</head>
-<body>
-<header>
-    <h1><a href="index.php">MY BLOG</a></h1>
-    <a href="register.php">Register</a>
-    <a href="login.php">Login</a>
-    <a href="addpost.php">New post</a>
-</header>
+
+<?php
+include "database.php";
+include "header.php";
+?>
 <main>
     <section>
     <?php
-     include "header.php";
-    include "database.php";
-
     //-----------------------------------QUERIES-----------------------------------------------
     if (isset($_GET['tag'])) {
         $tag = $_GET['tag'];
@@ -210,8 +199,4 @@ $postcount=0;
 
     </aside>
 </main>
-<footer>
-
-</footer>
-</body>
-</html>
+<?php include "footer.php"; ?>
