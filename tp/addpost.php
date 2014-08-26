@@ -10,7 +10,7 @@
 include "database.php";
 if(!isset($_SESSION['user_rights']) || $_SESSION['user_rights'] !== 'admin'){
     header('Location: index.php');
-    die('ACCESS DIEND');
+    die('ACCESS DENIED');
 }
 
 ?>
