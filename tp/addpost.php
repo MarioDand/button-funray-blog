@@ -15,7 +15,6 @@
 
 <?php
 include "database.php";
-include "header.php";
 
 
 class Post
@@ -38,13 +37,12 @@ if($_POST && isset($_POST["title"]) && isset($_POST["desc"])&& isset($_POST["con
 
     $post->date =   date('Y-m-d H:i:s');
 
-    $post->tags= $_POST['tags'];
-    $exploded= explode(" ",$post->tags);
-    $exploded= array_unique($exploded);
-    $post->tags = " ".$post->tags;
+    $post->tags= trim($_POST['tags']); //string of tags
+    $exploded= explode(" ",$post->tags); // array of tags
+    $exploded= array_unique($exploded);//unique array of tags
+    $post->tags = " ".implode(" ",$exploded);
 
-    $sql = "INSERT INTO posts
- ( post_title, post_desc, post_cont, post_date,post_tags )
+    $sql = "INSERT INTO posts( post_title, post_desc, post_cont, post_date,post_tags )
   VALUES ( '$post->title','$post->desc',  '$post->content','$post->date','$post->tags')";
 
     $query = $db->prepare( $sql );
@@ -60,15 +58,16 @@ if($_POST && isset($_POST["title"]) && isset($_POST["desc"])&& isset($_POST["con
 
 
 
-    for($i=0;$i<count($exploded);$i++){
 
-        $sql = "INSERT INTO tags ( tag_title) VALUES ( '$exploded[$i]') ON DUPLICATE KEY UPDATE tag_count=tag_count+1" ;
-        $query = $db->prepare( $sql );
+foreach($exploded as $tag){
 
-        $query->execute(array(
-            ':tag_title' => $exploded[$i]
-        ));
-    }
+    $sql = "INSERT INTO tags (tag_title) VALUES ('$tag') ON DUPLICATE KEY UPDATE tag_count=tag_count+1" ;
+    $query = $db->prepare( $sql );
+
+    $query->execute(array(
+        ':tag_title' => $tag
+    ));
+}
 
 
 
