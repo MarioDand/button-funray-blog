@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
 <form method="post">
     <input type="text" name="name" required="required"/> Username <br>
     <input type="password" name="pass" required="required"/> Password <br>
@@ -103,8 +96,7 @@ if ($_POST && isset($_POST["name"]) && isset($_POST["pass"]) && isset($_POST["co
     }
 }
 ?>
-</body>
-</html>
+
 <?php
 function create_hash($value)
 {

@@ -1,3 +1,4 @@
+
 <footer>
     <link type="text/css" rel="stylesheet" href="Styles/footer.css"/>
     <div id="info">
@@ -9,11 +10,11 @@
             <div class="logo">
                 <a target="_blank" href="index.php"><img src="Images/logo.png" width="906" height="234" /></a>
             </div>
+    </footer>
             <br>
             <div class="clinks"><a target="_blank" href="http://www.softuni.bg">SoftUni</a> &copy; 2014 All rights reserved. <a href="#">Contact</a></div>
 
-
-        </div>
+    </div>
 </footer>
 </body>
 </html>
