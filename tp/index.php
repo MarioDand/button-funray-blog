@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
     <title>My blog</title>
@@ -15,7 +14,7 @@
 <main>
     <section>
     <?php
-    include "header.php";
+     include "header.php";
     include "database.php";
 
     //-----------------------------------QUERIES-----------------------------------------------
@@ -70,6 +69,14 @@ $postcount=0;
         echo "<p>$cont</p>";
         echo "<p>$date</p>";
 
+        if(isset($_SESSION['user_name']) && $_SESSION['user_name'] &&($_SESSION['user_rights']==='admin')):
+        ?>
+        <form action="deletePost.php" method="post">
+          <input type="hidden" name="post_id" value="<?php echo $postId ?>" />
+          <input type="submit" name="post_rem" value="Delete" />
+        </form>
+        <?php
+            endif;
 
         foreach($tagarray as $value){
            echo "<a href='index.php?tag=$value'  >$value</a>";
