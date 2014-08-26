@@ -15,8 +15,8 @@
 <main>
     <section>
     <?php
-  
-     include "database.php";
+    include "header.php";
+    include "database.php";
 
     //-----------------------------------QUERIES-----------------------------------------------
     if (isset($_GET['tag'])) {
