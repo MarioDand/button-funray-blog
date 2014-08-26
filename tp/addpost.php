@@ -38,13 +38,13 @@ if($_POST && isset($_POST["title"]) && isset($_POST["desc"])&& isset($_POST["con
 
 
     $post = new Post;
-    $post->title =  mysql_real_escape_string(htmlspecialchars($_POST['title']));
-    $post->desc =  mysql_real_escape_string(htmlspecialchars($_POST['desc']));
-    $post->content =  mysql_real_escape_string(htmlspecialchars($_POST['content']));
+    $post->title =  htmlentities($_POST['title']);
+    $post->desc =  htmlentities($_POST['desc']);
+    $post->content =  htmlentities($_POST['content']);
 
     $post->date =   date('Y-m-d H:i:s');
 
-    $post->tags= mysql_real_escape_string(htmlspecialchars($_POST['tags']));
+    $post->tags= $_POST['tags'];
     $exploded= explode(" ",$post->tags);
     $exploded= array_unique($exploded);
     $post->tags = " ".$post->tags;
