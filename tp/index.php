@@ -6,12 +6,6 @@
     <link type="text/css" rel="stylesheet" href="Styles/index.css"/>
 </head>
 <body>
-<header>
-    <h1><a href="index.php">MY BLOG</a></h1>
-    <a href="register.php">Register</a>
-    <a href="login.php">Login</a>
-    <a href="addpost.php">New post</a>
-</header>
 <main>
     <section>
     <?php
@@ -45,9 +39,6 @@ ORDER BY post_date DESC  LIMIT 5 OFFSET $offset";
         $query="SELECT post_id,post_title, post_desc, post_cont, post_date,post_count, post_tags FROM posts WHERE post_date <= now()
 ORDER BY post_date DESC LIMIT 5";
       }
-
-
-
     }
     $sth =  $db->query($query);
     while ($row = $sth->fetch(PDO::FETCH_ASSOC))
@@ -67,7 +58,14 @@ ORDER BY post_date DESC LIMIT 5";
         echo "<p>$cont</p>";
         echo "<p>$date</p>";
 
-
+        if(isset($_SESSION['user_name']) && $_SESSION['user_name'] &&($_SESSION['user_rights']==='admin')):
+        ?>
+        <form action="delete.php" method="post">
+          <input type="hidden" name="post_id" value="<?php echo $postId ?>" />
+          <input type="submit" name="post_rem" value="Delete" />
+        </form>
+        <?php
+            endif;
         foreach($tagarray as $value){
           if(isset($_GET['page'])){
               $page=$_GET['page'];
