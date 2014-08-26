@@ -23,9 +23,11 @@
     <link type="text/css" rel="stylesheet" href="Styles/viewpost.css"/>
 </head>
 <body>
+
 <?php
     include "header.php";
 ?>
+
 <main>
     <section id="blog-post">
         <?php
@@ -42,7 +44,14 @@
             echo "<p>$cont</p>";
             echo "<p>$date</p>";
 
-
+        if(isset($_SESSION['user_name']) && $_SESSION['user_name'] &&($_SESSION['user_rights']==='admin')):
+            ?>
+            <form action="deletePost.php" method="post">
+                <input type="hidden" name="post_id" value="<?php echo $postId ?>" />
+                <input type="submit" name="post_rem" value="Delete" />
+            </form>
+        <?php
+        endif;
         ?>
     </section>
 
@@ -67,7 +76,9 @@
             <input type="text" name="user" id="user" placeholder="guest"/>
             <label for="email">E-mail:</label>
             <input type="email" name="email" id="email"/>
-        <?php
+
+
+            <?php
             $user_name = trim($_POST['user']);
             $user_mail = trim($_POST['email']);
 
@@ -93,14 +104,13 @@
             header('Location: viewpost.php?id='.$postId);
         }
 
-
-        $query="SELECT comment_content, post_id, user_name, user_mail, comment_date FROM comments ORDER BY comment_id DESC";
+        $query="SELECT comment_content, post_id, user_name, comment_date, comment_id FROM comments ORDER BY comment_id DESC";
 
         $commentsValues = $db->query($query);
 
         while ($row = $commentsValues->fetch(PDO::FETCH_ASSOC))
         {
-
+            $commentId = $row['comment_id'];
             $dbText = htmlentities($row['comment_content']);
             $dbPostId = $row['post_id'];
             $dbUserName = $row['user_name'];
@@ -121,6 +131,17 @@
             echo "<p>Commented by $dbUserName $dbUserMail on $dbCommentDate</p>";
             echo "<p>$dbText</p>";
             echo "</div>";
+
+            if(isset($_SESSION['user_name']) && $_SESSION['user_name'] &&($_SESSION['user_rights']==='admin')):
+                ?>
+                <form action="deleteComment.php" method="post">
+                    <input type="hidden" name="comment_id" value="<?php echo $commentId ?>" />
+                    <input type="hidden" name="post_id" value="<?php echo $postId ?>" />
+                    <input type="submit" name="comm_rem" value="Delete" />
+                </form>
+            <?php
+            endif;
+
             }
         }
 

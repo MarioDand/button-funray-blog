@@ -7,6 +7,5 @@ if (isset($_POST['post_rem'])) {
     $sql = "DELETE FROM posts WHERE post_id = '$postId'";
     $query = $db->prepare($sql);
     $query->execute(array(':post_id' => $postId));
-
 }
 header('Location: index.php');
