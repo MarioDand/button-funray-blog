@@ -41,19 +41,26 @@ include "header.php";
     $check = $db->query($checkquery);
     //------------------------ECHO POSTS------------------------------------------------------------
     while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
-        $title = html_entity_decode($row['post_title']);
-        $desc = html_entity_decode($row['post_desc']);
-        $cont = html_entity_decode($row['post_cont']);
+        $title = htmlentities($row['post_title']);
+        $desc = htmlentities($row['post_desc']);
+        $cont = htmlentities($row['post_cont']);
         $date = $row['post_date'];
         $postId = $row['post_id'];
         $count = $row['post_count'];
-        $tagarray = explode(" ", html_entity_decode($row['post_tags']));
+        $tagarray = explode(" ", htmlentities($row['post_tags']));
 
         echo "<article class='posts'>";
         echo "<p>$count</p>";
         echo "<p><a href='viewpost.php?id=$postId'>$title</a></p>";
         echo "<p>$desc</p>";
-        echo "<p>$cont</p>";
+        if (strlen($cont) > 200){
+            $stringCut = substr($cont, 0, 200);
+            echo "<p>$stringCut</p>";
+        }
+        else{
+            echo "<p>$cont</p>"; //"<p>$cont</p>";
+        }
+
         echo "<p>$date</p>";
 
         if (isset($_SESSION['user_name']) && $_SESSION['user_name'] && ($_SESSION['user_rights'] === 'admin')):
