@@ -1,55 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>БГ-ТАТИ</title>
+    <title>My blog</title>
     <meta charset="UTF-8">
-    <link type="text/css" rel="stylesheet" href="Styles/index.css"/>
+   <link type="text/css" rel="stylesheet" href="Styles/index.css">
 </head>
 <body>
+<header>
+    <h1><a href="index.php">MY BLOG</a></h1>
+    <a href="register.php">Register</a>
+    <a href="login.php">Login</a>
+    <a href="addpost.php">New post</a>
+</header>
 <main>
     <section>
     <?php
+  
      include "database.php";
-    include "header.php";
-    
-    if(isset($_GET['tag'])){
+
+    //-----------------------------------QUERIES-----------------------------------------------
+    if (isset($_GET['tag'])) {
         $tag = $_GET['tag'];
 
-        if(isset($_GET['page'])){
-
-        $page =$_GET['page'];
-            $offset =($page-1)*5;
-        $query="SELECT post_id ,post_date,post_desc,post_cont,post_title,post_count, post_tags
-        FROM posts WHERE post_tags LIKE '% $tag %' OR post_tags LIKE '$tag %' OR post_tags LIKE '% $tag'
-         ORDER BY post_date DESC LIMIT 5 OFFSET $offset";
-        }else{
-            $query="SELECT post_id ,post_date,post_desc,post_cont,post_title,post_count, post_tags
-        FROM posts WHERE post_tags LIKE '% $tag %' OR post_tags LIKE '$tag %' OR post_tags LIKE '% $tag'
-         ORDER BY post_date DESC LIMIT 5";
-
+        if (isset($_GET['page'])) {
+            $offset = ($_GET['page'] - 1) * 5;
+        } else {
+            $offset = 0;
         }
+        $testoff = $offset+6;
+        $query = "SELECT * FROM posts WHERE post_tags
+     LIKE '% $tag %' OR post_tags LIKE '$tag %' OR post_tags LIKE '% $tag'
+         ORDER BY post_date DESC LIMIT $offset,5";
+     $checkquery = "SELECT * FROM posts WHERE post_tags
+     LIKE '% $tag %' OR post_tags LIKE '$tag %' OR post_tags LIKE '% $tag'
+         ORDER BY post_date DESC LIMIT $testoff,1";
 
-    }else{
-      if(isset($_GET['page'])){
-          $page =$_GET['page'];
-          $offset =($page-1)*5;
-          $query="SELECT post_id, post_title, post_desc, post_cont, post_date,post_count, post_tags FROM posts WHERE post_date <= now()
-ORDER BY post_date DESC  LIMIT 5 OFFSET $offset";
-      }else{
-        $query="SELECT post_id,post_title, post_desc, post_cont, post_date,post_count, post_tags FROM posts WHERE post_date <= now()
-ORDER BY post_date DESC LIMIT 5";
-      }
+    } else {
+        if (isset($_GET['page'])) {
+            $page = $_GET['page'];
+            $offset = ($page - 1) * 5;
+        } else {
+            $offset = 0;
+        }
+        $testoff = $offset+6;
+        $query = "SELECT * FROM posts ORDER BY post_date DESC LIMIT $offset,5";
+        $checkquery = "SELECT * FROM posts ORDER BY post_date DESC LIMIT $testoff,1";
     }
+    //-----------------------------------QUERIES-------------------------------------------------
+
+$postcount=0;
+
     $sth =  $db->query($query);
+    $check= $db->query($checkquery);
+ //------------------------ECHO POSTS------------------------------------------------------------
     while ($row = $sth->fetch(PDO::FETCH_ASSOC))
     {
-        $title = $row['post_title'];
-        $desc = $row['post_desc'];
-        $cont = $row['post_cont'];
+        $title = htmlentities($row['post_title']);
+        $desc = htmlentities($row['post_desc']);
+        $cont = htmlentities($row['post_cont']);
         $date = $row['post_date'];
         $postId = $row['post_id'];
         $count = $row['post_count'];
-        $tagarray = explode(" ",$row['post_tags']);
+        $tagarray = explode(" ",htmlentities($row['post_tags']));
 
         echo "<article class='posts'>";
         echo "<p>$count</p>";
@@ -58,27 +70,66 @@ ORDER BY post_date DESC LIMIT 5";
         echo "<p>$cont</p>";
         echo "<p>$date</p>";
 
-        if(isset($_SESSION['user_name']) && $_SESSION['user_name'] &&($_SESSION['user_rights']==='admin')):
-        ?>
-        <form action="delete.php" method="post">
-          <input type="hidden" name="post_id" value="<?php echo $postId ?>" />
-          <input type="submit" name="post_rem" value="Delete" />
-        </form>
-        <?php
-            endif;
+
         foreach($tagarray as $value){
-          if(isset($_GET['page'])){
-              $page=$_GET['page'];
-           echo "<a href='index.php?tag=$value&page=$page'  style='text-decoration:none'>$value</a>";
+           echo "<a href='index.php?tag=$value'  >$value</a>";
             echo " ";
-          }else{
-              echo "<a href='index.php?tag=$value'  style='text-decoration:none'>$value</a>";
-              echo " ";
-          }
         }
         echo "</article>";
+        $postcount++;
+    }
+    //------------------------ECHO POSTS------------------------------------------------------------
+  $test =$check->fetch(PDO::FETCH_ASSOC);
+    if($postcount<=5&&!$test){
+        $postcount = 0;
+    }else{
+        $postcount = true;
     }
      echo "<div id='pages'>";
+       if(isset($_GET['tag'])){
+           $tag= $_GET['tag'];
+           if(isset($_GET['page'])){
+               $page= $_GET['page'];
+                $nextpage=$page+1;
+               $prevpage =$page-1;
+               if($prevpage==1){
+                   echo "<a href='index.php?tag=$tag'  >Newer posts</a>";
+               }else{
+                   echo "<a href='index.php?tag=$tag&page=$prevpage' >Newer posts</a>";
+               }
+               echo " ";
+                     if($postcount==true){
+               echo "<a href='index.php?tag=$tag&page=$nextpage'  >Older posts</a>";
+                     }
+           }else{
+               if($postcount==true){
+               echo "<a href='index.php?tag=$tag&page=2' >Older posts</a>";
+               }
+           }
+
+       }else{
+           if(isset($_GET['page'])){
+               $page= $_GET['page'];
+               $nextpage=$page+1;
+               $prevpage =$page-1;
+               if($prevpage==1){
+                   echo "<a href='index.php'  >Newer posts</a>";
+               }else{
+                   echo "<a href='index.php?page=$prevpage'  >Newer posts</a>";
+               }
+               echo " ";
+               if($postcount==true){
+               echo "<a href='index.php?page=$nextpage' >Older posts</a>";
+               }
+           }else{
+               if($postcount==true){
+               echo "<a href='index.php?page=2' >Older posts</a>";
+               }
+           }
+
+       }
+
+
 
     echo "</div>";
      ?>
@@ -94,7 +145,7 @@ ORDER BY post_date DESC LIMIT 5";
             $count = $row['tag_count'];
 
             ?>
-            <a href='index.php?tag=<?=$title?>' style="text-decoration:none;"><?=$title?> (<?=$count?>)</a><br>
+            <a href='index.php?tag=<?=$title?>'><?=$title?> (<?=$count?>)</a><br>
         <?php
         }
 
@@ -104,6 +155,52 @@ ORDER BY post_date DESC LIMIT 5";
             <input type="text" name="tag" id="tag"><br>
             <input type="submit">
         </form>
+    </aside>
+    <aside>
+      Blog archive:<br>
+         <?php
+        $curyear= date('Y');
+         echo "<ul>";
+       for($y=$curyear;$y>=$curyear-5;$y--){
+           //-------------------------PROVERKA------------------------------
+           $sql = "SELECT count(*) FROM posts WHERE YEAR(post_date)='$y'";
+           $result = $db->prepare($sql);
+           $result->execute();
+           $number_of_rows= $result->fetchColumn();
+           //---------------------------------------------------------------------
+         if($number_of_rows>0){
+           echo "<li><ul>$y";
+           for($m=12;$m>=1;$m--){
+               //-------------------------PROVERKA------------------------------
+               $sql = "SELECT count(*) FROM posts WHERE YEAR(post_date)='$y' AND MONTH(post_date)='$m'";
+               $result = $db->prepare($sql);
+               $result->execute();
+               $number_of_rows= $result->fetchColumn();
+             //---------------------------------------------------------------------
+               if($number_of_rows>0){
+                   $monthName =date("F", mktime(0, 0, 0, $m, 10));
+               echo "<li><ul>$monthName";
+         $query = "SELECT * FROM posts WHERE YEAR(post_date)='$y' AND MONTH(post_date)='$m' ORDER BY post_date DESC";
+           $sth =  $db->query($query);
+           while ($row = $sth->fetch(PDO::FETCH_ASSOC))
+           {
+               $title = $row['post_title'];
+               $id = $row['post_id'];
+               $title = substr($title,0,10).'...';
+               echo "<li><a href='viewpost.php?post=$id'>$title</a></li>";
+
+           }
+               echo "</ul></li>";
+               }
+
+           }
+           echo "</ul></li>";
+       }
+         echo "</ul>";
+       }
+
+         ?>
+
     </aside>
 </main>
 <footer>
