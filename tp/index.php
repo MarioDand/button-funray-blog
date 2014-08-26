@@ -1,58 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My blog</title>
+    <title>БГ-ТАТИ</title>
     <meta charset="UTF-8">
-    <style>
-
-
-
-        main,header{
-            width: 60%;
-            margin-left: 20%;
-            border: 1px solid black;
-        }
-        main{
-           height: 100%;
-            display: inline-block;
-        }
-        header{
-
-           margin-bottom: 15px;
-            height: 100px;
-        }
-        footer{
-            margin-top: 15px;
-            height: 50px;
-            margin-left: 20%;
-            width: 60%;
-            border: 1px solid black;
-            display: inline-block;
-        }
-        aside{
-            display: inline-block;
-            width: 20%;
-           top:15px;
-            bottom:0;
-
-
-            margin:2%;
-margin-top: 10px;
-            border: 1px solid black;
-        }
-        .posts{
-            border: 1px solid black;
-            width: 70%;
-
-            margin: 2%;
-            margin-top: 10px;
-            float:left;
-            display: inline-block;
-        }
-        #pages{
-            float: left;
-        }
-    </style>
+    <link type="text/css" rel="stylesheet" href="Styles/index.css"/>
 </head>
 <body>
 <header>
