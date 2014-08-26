@@ -41,13 +41,13 @@ include "header.php";
     $check = $db->query($checkquery);
     //------------------------ECHO POSTS------------------------------------------------------------
     while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
-        $title = htmlentities($row['post_title']);
-        $desc = htmlentities($row['post_desc']);
-        $cont = htmlentities($row['post_cont']);
+        $title = html_entity_decode($row['post_title']);
+        $desc = html_entity_decode($row['post_desc']);
+        $cont = html_entity_decode($row['post_cont']);
         $date = $row['post_date'];
         $postId = $row['post_id'];
         $count = $row['post_count'];
-        $tagarray = explode(" ", htmlentities($row['post_tags']));
+        $tagarray = explode(" ", html_entity_decode($row['post_tags']));
 
         echo "<article class='posts'>";
         echo "<p>$count</p>";

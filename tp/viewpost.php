@@ -1,6 +1,6 @@
 <?php
     include "database.php";
-
+    error_reporting(E_ALL ^ E_NOTICE);
 
     $postId = $_GET['id'];
 
@@ -9,21 +9,12 @@
     $sth =  $db->query($query);
     $row = $sth->fetch(PDO::FETCH_ASSOC);
 
-    $title = $row['post_title'];
-    $desc = $row['post_desc'];
-    $cont = $row['post_cont'];
+    $title = html_entity_decode($row['post_title']);
+    $desc = html_entity_decode($row['post_desc']);
+    $cont = html_entity_decode($row['post_cont']);
     $date = $row['post_date'];
     $count = $row['post_count'];
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title><?=$title?></title>
-    <meta charset="UTF-8">
-    <link type="text/css" rel="stylesheet" href="Styles/viewpost.css"/>
-</head>
-<body>
-
 <?php
     include "header.php";
 ?>
@@ -63,7 +54,7 @@
         error_reporting(E_ALL ^ E_NOTICE);
         $comment = trim($_POST['text-comments']);
 
-        $comment = htmlspecialchars($comment);
+        $comment = html_entity_decode($comment);
 
         $user_id = $_SESSION['user_id'];
         $user_name = $_SESSION['user_name'];
@@ -153,8 +144,6 @@
         <p>Sidebar</p>
     </aside>
 </main>
-<footer>
-    <p>Footer</p>
-</footer>
-</body>
-</html>
+<?php
+include "footer.php";
+?>

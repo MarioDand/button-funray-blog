@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <title>БГ-ТАТИ</title>
     <link type="text/css" rel="stylesheet" href="Styles/index.css">
 </head>
 <body>
