@@ -5,6 +5,15 @@
     <title></title>
 </head>
 <body>
+<?php
+
+include "database.php";
+if(!isset($_SESSION['user_rights']) || $_SESSION['user_rights'] !== 'admin'){
+    header('Location: index.php');
+    die('ACCESS DIEND');
+}
+
+?>
 <form method="post">
     <input type="text" name="title" placeholder="Post title">  <br>
     <input type="text" name="desc" placeholder="Post desc">  <br>
@@ -14,8 +23,6 @@
 </form>
 
 <?php
-include "database.php";
-
 
 class Post
 {
@@ -37,12 +44,13 @@ if($_POST && isset($_POST["title"]) && isset($_POST["desc"])&& isset($_POST["con
 
     $post->date =   date('Y-m-d H:i:s');
 
-    $post->tags= trim($_POST['tags']); //string of tags
-    $exploded= explode(" ",$post->tags); // array of tags
-    $exploded= array_unique($exploded);//unique array of tags
-    $post->tags = " ".implode(" ",$exploded);
+    $post->tags= $_POST['tags'];
+    $exploded= explode(" ",$post->tags);
+    $exploded= array_unique($exploded);
+    $post->tags = " ".$post->tags;
 
-    $sql = "INSERT INTO posts( post_title, post_desc, post_cont, post_date,post_tags )
+    $sql = "INSERT INTO posts
+ ( post_title, post_desc, post_cont, post_date,post_tags )
   VALUES ( '$post->title','$post->desc',  '$post->content','$post->date','$post->tags')";
 
     $query = $db->prepare( $sql );
@@ -58,20 +66,17 @@ if($_POST && isset($_POST["title"]) && isset($_POST["desc"])&& isset($_POST["con
 
 
 
+    for($i=0;$i<count($exploded);$i++){
 
-foreach($exploded as $tag){
+        $sql = "INSERT INTO tags ( tag_title) VALUES ( '$exploded[$i]') ON DUPLICATE KEY UPDATE tag_count=tag_count+1" ;
+        $query = $db->prepare( $sql );
 
-    $sql = "INSERT INTO tags (tag_title) VALUES ('$tag') ON DUPLICATE KEY UPDATE tag_count=tag_count+1" ;
-    $query = $db->prepare( $sql );
+        $query->execute(array(
+            ':tag_title' => $exploded[$i]
+        ));
+    }
 
-    $query->execute(array(
-        ':tag_title' => $tag
-    ));
-}
-
-
-
-  header('Location: index.php?action=updated');
+  header('Location: index.php');
 
 }
 ?>
