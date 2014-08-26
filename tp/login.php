@@ -19,12 +19,9 @@
 
 
 <?php
+
 include "database.php";
-
-
-if (!isset($_SESSION)) {
-    session_start();
-}
+include "header.php";
 
 if (isset($_POST['user']) && isset($_POST['pass'])) {
 

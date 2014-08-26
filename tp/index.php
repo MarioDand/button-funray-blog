@@ -5,22 +5,6 @@
     <meta charset="UTF-8">
     <style>
 
-
-
-        main,header{
-            width: 60%;
-            margin-left: 20%;
-            border: 1px solid black;
-        }
-        main{
-           height: 100%;
-            display: inline-block;
-        }
-        header{
-
-           margin-bottom: 15px;
-            height: 100px;
-        }
         footer{
             margin-top: 15px;
             height: 50px;
@@ -55,16 +39,12 @@ margin-top: 10px;
     </style>
 </head>
 <body>
-<header>
-    <h1>MY BLOG</h1>
-    <a href="register.php">Register</a>
-    <a href="login.php">Login</a>
-    <a href="addpost.php">New post</a>
-</header>
+
 <main>
     <section>
     <?php
      include "database.php";
+    include "header.php";
 
     if(isset($_GET['tag'])){
         $tag = $_GET['tag'];

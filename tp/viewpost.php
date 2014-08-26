@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <style>
 
-
-
         main,header{
             width: 60%;
             margin-left: 20%;
@@ -95,6 +93,7 @@
     <section id="blog-post">
         <?php
         include "database.php";
+        include "header.php";
 
         $postId = $_GET['id'];
 

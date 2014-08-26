@@ -15,6 +15,7 @@
 
 <?php
 include "database.php";
+include "header.php";
 
 class User
 {
@@ -77,7 +78,6 @@ if ($_POST && isset($_POST["name"]) && isset($_POST["pass"]) && isset($_POST["co
 
     $hashed = create_hash($_POST['pass']);
 
-
     $user = new User;
     $user->name = htmlentities($_POST['name']);
     $user->pass = $hashed;
@@ -105,4 +105,9 @@ if ($_POST && isset($_POST["name"]) && isset($_POST["pass"]) && isset($_POST["co
 ?>
 </body>
 </html>
-
+<?php
+function create_hash($value)
+{
+    return $hash = crypt($value, '$2a$12$'.substr(str_replace('+', '.', base64_encode(sha1(microtime(true), true))), 0, 22));
+}
+?>
