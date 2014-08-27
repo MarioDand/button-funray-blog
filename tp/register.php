@@ -1,8 +1,15 @@
 <form method="post">
-    <input type="text" name="name" required="required"/> Username <br>
-    <input type="password" name="pass" required="required"/> Password <br>
-    <input type='password' name='confPass' required="required"/> Confirm password <br>
-    <input type="email" name="email" required="required"/> E-mail <br>
+    <label for="username">Username: </label>
+    <input type="text" id="username" name="name" required="required"/>
+
+    <label for="pass">Password: </label>
+    <input type="password" id="pass" name="pass" required="required"/>
+
+    <label for="confirm">Confirm Password: </label>
+    <input type='password' id="confirm" name='confPass' required="required"/>
+
+    <label for="email">Email: </label>
+    <input type="email" id="email" name="email" required="required"/>
     <input type="submit" value="Register" required="required"/>
 </form>
 
@@ -37,33 +44,33 @@ if ($_POST && isset($_POST["name"]) && isset($_POST["pass"]) && isset($_POST["co
     $rowEmail = $sthEmail->fetch(PDO::FETCH_ASSOC);
 
     if ($rowUser['user_name']) {
-        echo "Username already exists <br>";
+        echo "Username already exists ";
         $validateForm = false;
     }
 
     if ($rowEmail['user_mail']) {
 
-        echo "Email address already exists <br>";
+        echo "Email address already exists ";
         $validateForm = false;
     }
 
     if (!preg_match($namePattern, $_POST['name'])) {
-        echo "Enter correct name <br>";
+        echo "Enter correct name ";
         $validateForm = false;
     }
 
     if ($_POST["pass"] !== $_POST["confPass"]) {
-        echo "Password don't match <br>";
+        echo "Password don't match ";
         $validateForm = false;
     }
 
     if (!preg_match($passPattern, $_POST['pass'])) {
-        echo "The password must be at least 5 characters <br>";
+        echo "The password must be at least 5 characters ";
         $validateForm = false;
     }
 
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-        echo "Enter valid a email <br>";
+        echo "Enter valid a email ";
         $validateForm = false;
     }
 

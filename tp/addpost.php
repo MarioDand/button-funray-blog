@@ -15,10 +15,10 @@ if(!isset($_SESSION['user_rights']) || $_SESSION['user_rights'] !== 'admin'){
 
 ?>
 <form method="post">
-    <input type="text" name="title" placeholder="Post title">  <br>
-    <input type="text" name="desc" placeholder="Post desc">  <br>
-    <textarea name="content" placeholder="Your post"></textarea> <br>
-    <input type="text" name="tags" placeholder="Tags"> <br>
+    <input type="text" name="title" placeholder="Post title">  
+    <input type="text" name="desc" placeholder="Post desc">  
+    <textarea name="content" placeholder="Your post"></textarea> 
+    <input type="text" name="tags" placeholder="Tags"> 
     <input type="submit" value="Post">
 </form>
 

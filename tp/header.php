@@ -2,9 +2,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>BG Tati</title>
     <meta charset="UTF-8">
-    <title>БГ-ТАТИ</title>
     <link type="text/css" rel="stylesheet" href="Styles/index.css">
+    <link type="text/css" rel="stylesheet" href="Styles/footer.css"/>
 </head>
 <body>
     <?php include "database.php"; ?>

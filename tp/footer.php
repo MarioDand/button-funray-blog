@@ -5,7 +5,7 @@
             <a href="#" target="_blank">About</a> |
             <a href="#" target="_blank">Help</a> |
             <a href="#" target="_blank">F.A.Q.</a> |
-            <br><br>
+
             <div class="logo">
                 <a target="_blank" href="index.php"><img src="Images/logo.png" width="100px" height="27px" /></a>
             </div>

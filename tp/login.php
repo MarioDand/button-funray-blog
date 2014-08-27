@@ -6,8 +6,8 @@
     <body>
     <fieldset style="width: 30%">
         <form method="post">
-            <input type="text" name="user" placeholder="Username"/><br>
-            <input type="password" name="pass" placeholder="Password"/><br>
+            <input type="text" name="user" placeholder="Username"/>
+            <input type="password" name="pass" placeholder="Password"/>
             <input type="submit">
         </form>
     </fieldset>
