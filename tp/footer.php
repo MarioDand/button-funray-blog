@@ -1,4 +1,3 @@
-
 <footer>
     <div id="info">
         <div class="footer-links">

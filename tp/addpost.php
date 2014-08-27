@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> a07323a2ac21129e6cbf56900c080c57cc805053
 <?php
 
 include "database.php";
@@ -79,10 +75,3 @@ if($_POST && isset($_POST["title"]) && isset($_POST["desc"])&& isset($_POST["con
 
 }
 include "footer.php";
-<<<<<<< HEAD
-=======
-
-?>
->>>>>>> a07323a2ac21129e6cbf56900c080c57cc805053
-
-?>

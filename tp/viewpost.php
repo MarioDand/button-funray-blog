@@ -31,19 +31,13 @@
                 setcookie($postId, 'count',  time()+(3600*24));
             }
 
-<<<<<<< HEAD
-=======
-//            echo
->>>>>>> a07323a2ac21129e6cbf56900c080c57cc805053
+            echo "<div class='clearfix veiwDivPost'>";
             echo "<p>$title</p>";
             echo "<p>$desc</p>";
             echo "<p>$cont</p>";
             echo "<p>$date</p>";
             echo "<p>Views: $count</p>";
-<<<<<<< HEAD
             echo "</div>";
-=======
->>>>>>> a07323a2ac21129e6cbf56900c080c57cc805053
 
         if(isset($_SESSION['user_name']) && $_SESSION['user_name'] &&($_SESSION['user_rights']==='admin')):
             ?>
@@ -74,7 +68,6 @@
 
         if (!$user_name && !$user_id) {
         ?>
-
             <label for="user" class="comment-input">Author:</label>
             <input type="text" class="comment-input" name="user" id="user" placeholder="guest"/>
             <label for="email" class="comment-input">E-mail:</label>

@@ -19,7 +19,7 @@ ul, h1, h2, h3, h4, h5, h6 {
 }
 
 main {
-    background-color: #FEFCE8;
+
 }
 
 .logo {
@@ -35,13 +35,13 @@ main {
 .wrapper {
     width: 1000px;
     margin: 0 auto;
+    background-color: linen;
     border: 1px solid black;
 }
 
     .wrapper > header {
         background-color: #67C5C2;
         height: 75px;
-        border-bottom: 1px solid black;
     }
 
     .wrapper > header > nav {
@@ -109,20 +109,51 @@ aside {
     margin: 16px 32px;
 }
 
-<<<<<<< HEAD
 section {
+    padding-left: 20px;
     width: 80%;
-    border: 1px solid;
     float: left;
 }
 
+
 #post-comments {
     width: 50%;
-    margin-left: 30%;
+    margin-left: 10%;
+    float: left;
 }
 
-=======
->>>>>>> a07323a2ac21129e6cbf56900c080c57cc805053
+.comment-input {
+    margin: 1em;
+    padding: 1em;
+    display: block;
+    width: 50%;
+}
+
+#published-comments {
+    width: 65%;
+    margin-left: 10%;
+}
+
+.comment-input {
+    margin: 1em;
+    padding: 1em;
+    display: block;
+    width: 50%;
+}
+
+textarea.comment-input {
+    margin-left: 0;
+    height: 5em;
+    width: 80%;
+    float: left;
+}
+
+input[type=submit].comment-input {
+    padding: 15px 0;
+    font-size: 30px;
+    line-height: 50px;
+}
+
 .inputs {
     margin: 1.5em;
     padding: 2em;
@@ -131,10 +162,6 @@ section {
 }
 
 textarea.inputs {
-<<<<<<< HEAD
-=======
-
->>>>>>> a07323a2ac21129e6cbf56900c080c57cc805053
     height: 50em;
 }
 
@@ -144,13 +171,6 @@ input[type=submit].inputs {
     line-height: 50px;
 }
 
-<<<<<<< HEAD
-.comment-input {
-    margin: 1em;
-    padding: 1em;
-    display: block;
-    width: 50%;
-}
 
 
 .tags-viewpost {
@@ -158,12 +178,3 @@ input[type=submit].inputs {
     float: right;
     border: 1px solid black;
 }
-=======
-/*.comment-input {*/
-    /*margin: 1em;*/
-    /*padding: 1em;*/
-    /*display: block;*/
-    /*width: 50%;*/
-/*}*/
-
->>>>>>> a07323a2ac21129e6cbf56900c080c57cc805053
