@@ -1,5 +1,7 @@
 <?php
     include "database.php";
+    include "header.php";
+    include "library.php";
     error_reporting(E_ALL ^ E_NOTICE);
 
     $postId = $_GET['id'];
@@ -16,7 +18,7 @@
     $count = $row['post_count'];
 ?>
 <?php
-    include "header.php";
+
 ?>
 
 <main>
@@ -29,11 +31,12 @@
                 setcookie($postId, 'count',  time()+(3600*24));
             }
 
-            echo "<p>$count</p>";
             echo "<p>$title</p>";
             echo "<p>$desc</p>";
             echo "<p>$cont</p>";
             echo "<p>$date</p>";
+            echo "<p>Views: $count</p>";
+            echo "</div>";
 
         if(isset($_SESSION['user_name']) && $_SESSION['user_name'] &&($_SESSION['user_rights']==='admin')):
             ?>
@@ -48,7 +51,7 @@
 
     <section id="post-comments">
         <form action="#" method="post">
-            <textarea id="text-comments" name="text-comments" placeholder="enter comments"></textarea>
+            <textarea id="text-comments" class="comment-input" name="text-comments" placeholder="enter comments"></textarea>
 
     <?php
         error_reporting(E_ALL ^ E_NOTICE);
@@ -65,10 +68,10 @@
         if (!$user_name && !$user_id) {
         ?>
 
-            <label for="user">Author:</label>
-            <input type="text" name="user" id="user" placeholder="guest"/>
-            <label for="email">E-mail:</label>
-            <input type="email" name="email" id="email"/>
+            <label for="user" class="comment-input">Author:</label>
+            <input type="text" class="comment-input" name="user" id="user" placeholder="guest"/>
+            <label for="email" class="comment-input">E-mail:</label>
+            <input type="email" class="comment-input" name="email" id="email"/>
 
 
             <?php
@@ -76,7 +79,9 @@
             $user_mail = trim($_POST['email']);
 
             $user_id = 0;
-            $user_name = 'guest';
+            if (!$user_name){
+                $user_name = 'guest';
+            }
         }
 
         ?>
@@ -140,9 +145,9 @@
 
     ?>
     </section>
-    <aside>
-        <p>Sidebar</p>
-    </aside>
+<?php
+include "aside.php";
+?>
 </main>
 <?php
 include "footer.php";

@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
 <?php
 
 include "database.php";
@@ -12,14 +5,16 @@ if(!isset($_SESSION['user_rights']) || $_SESSION['user_rights'] !== 'admin'){
     header('Location: index.php');
     die('ACCESS DENIED');
 }
-
+include "header.php";
+include "library.php";
 ?>
+
 <form method="post">
-    <input type="text" name="title" placeholder="Post title">  
-    <input type="text" name="desc" placeholder="Post desc">  
-    <textarea name="content" placeholder="Your post"></textarea> 
-    <input type="text" name="tags" placeholder="Tags"> 
-    <input type="submit" value="Post">
+    <input type="text" class="inputs" name="title" placeholder="Post title">
+    <input type="text"  class="inputs" name="desc" placeholder="Post desc">
+    <textarea name="content"  class="inputs" placeholder="Your post"></textarea>
+    <input type="text"  class="inputs" name="tags" placeholder="Tags">
+    <input type="submit"  class="inputs" value="Post">
 </form>
 
 <?php
@@ -79,7 +74,6 @@ if($_POST && isset($_POST["title"]) && isset($_POST["desc"])&& isset($_POST["con
   header('Location: index.php');
 
 }
-?>
-</body>
-</html>
+include "footer.php";
 
+?>
