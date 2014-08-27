@@ -3,16 +3,17 @@
 ?>
 <aside class="tags-viewpost">
     <h3 class="tagsHeading">Most popular tags:</h3>
+    <br>
     <ul>
         <?php showTags() ?>
     </ul>
+    <br>
     <form method="get">
         <label for="tag">Search tags:</label>
         <input type="text" name="tag" id="tag">
         <input type="submit" value="search">
     </form>
-
-    Blog archive:
+    <p>Blog archive:</p>
     <?php
     $curyear = date('Y');
     ?>

@@ -115,9 +115,10 @@ section {
 }
 
 .viewpost {
-    padding: 20px;
-    border: 1px solid grey;
-    margin: 20px;
+    width: 75%;
+    margin: 2% 2%;
+    float: left;
+    border: 1px solid;
 }
 
 #post-comments {

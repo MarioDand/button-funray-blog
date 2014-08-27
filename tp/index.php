@@ -72,6 +72,7 @@ include "library.php";
 </section>
 <aside class="tagsAside">
     <h3 class="tagsHeading">Most popular tags:</h3>
+    <br>
     <ul>
         <?php showTags() ?>
     </ul>
@@ -80,9 +81,8 @@ include "library.php";
         <input type="text" name="tag" id="tag">
         <input type="submit" value="search">
     </form>
-</aside>
-<aside>
-    Blog archive:
+
+    <p>Blog archive:</p>
     <?php
     $curyear = date('Y');
     ?>

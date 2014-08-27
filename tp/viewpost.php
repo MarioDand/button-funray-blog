@@ -22,7 +22,7 @@
 ?>
 
 <main>
-    <section id="blog-post">
+    <section class="viewpost">
         <?php
             if(!isset($_COOKIE[$postId])){
                 $sqlCount = "UPDATE posts SET post_count = post_count + 1 WHERE post_id = '$postId'";
@@ -31,14 +31,13 @@
                 setcookie($postId, 'count',  time()+(3600*24));
             }
 
-            echo "<div class='viewpost'>";
+            echo "<div class='innerArticle clearfix'>";
             echo "<p class='postTitle'>$title</p>";
-            echo "<p>$desc</p>";
+            echo "<p><strong>$desc</strong></p>";
             echo "<p>$cont</p>";
             echo "<p>$date</p>";
-            echo "<p>Views: $count</p>";
+            echo "<p><em>Views: $count</em></p>";
             echo "</div>";
-
         if(isset($_SESSION['user_name']) && $_SESSION['user_name'] &&($_SESSION['user_rights']==='admin')):
             ?>
             <form action="deletePost.php" method="post">
