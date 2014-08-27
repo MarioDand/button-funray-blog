@@ -199,3 +199,8 @@ input[type=submit].inputs {
     display: block;
     width: 20%;
 }
+
+#pages {
+    margin: 5px 20px;
+    width: 20%;
+}

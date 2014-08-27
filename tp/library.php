@@ -8,7 +8,7 @@ function showTags() {
     $sth = $db->query($query);
 
     while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
-        $title = $row['tag_title'];
+        $title = html_entity_decode($row['tag_title']);
         $count = $row['tag_count'];
 
         echo "<li><a href='index.php?tag=$title'> $title ( $count )</a></li>";
@@ -36,9 +36,9 @@ function showPosts($query, &$pagePostCount) {
 }
 
 function createPost($row) {
-    $title = htmlentities($row['post_title']);
-    $desc = htmlentities($row['post_desc']);
-    $cont = htmlentities($row['post_cont']);
+    $title = html_entity_decode($row['post_title']);
+    $desc = html_entity_decode($row['post_desc']);
+    $cont = html_entity_decode(nl2br($row['post_cont']));
     $date = $row['post_date'];
     $postId = $row['post_id'];
     $count = $row['post_count'];
@@ -47,9 +47,10 @@ function createPost($row) {
     echo "<article class='posts'>";
     echo "<div class='innerArticle clearfix'>";
     echo "<h4><a href='viewpost.php?id=$postId' class='postTitle'>$title</a></h4>";
+    echo "<h2>$desc</h2>";
     echo "<div class='divContent'>$cont</div>";
     echo "<p>$date</p>";
-    echo "<p>$count</p>";
+    echo "<p>Views: $count</p>";
     if (isset($_SESSION['user_name']) && $_SESSION['user_name'] && ($_SESSION['user_rights'] === 'admin')):
         ?>
         <form action="deletePost.php" method="post">

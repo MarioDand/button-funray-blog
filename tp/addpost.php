@@ -10,9 +10,9 @@ include "library.php";
 ?>
 
 <form method="post">
-    <input type="text" class="inputs" name="title" placeholder="Post title">
+    <input type="text" class="inputs" name="title" placeholder="Post title" required>
     <input type="text"  class="inputs" name="desc" placeholder="Post desc">
-    <textarea name="content"  class="inputs" placeholder="Your post"></textarea>
+    <textarea name="content"  class="inputs" placeholder="Your post" required></textarea>
     <input type="text"  class="inputs" name="tags" placeholder="Tags">
     <input type="submit"  class="inputs" value="Post">
 </form>
@@ -30,12 +30,10 @@ class Post
 
 if($_POST && isset($_POST["title"]) && isset($_POST["desc"])&& isset($_POST["content"])&& isset($_POST["tags"])){
 
-
-
     $post = new Post;
     $post->title =  addslashes(htmlentities($_POST['title']));
     $post->desc =  addslashes(htmlentities($_POST['desc']));
-    $post->content =  addslashes(htmlentities($_POST['content']));
+    $post->content =  addslashes($_POST['content']);
 
     $post->date =   date('Y-m-d H:i:s');
 
@@ -75,3 +73,4 @@ if($_POST && isset($_POST["title"]) && isset($_POST["desc"])&& isset($_POST["con
 
 }
 include "footer.php";
+?>

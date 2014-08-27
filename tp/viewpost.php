@@ -13,7 +13,8 @@
 
     $title = html_entity_decode($row['post_title']);
     $desc = html_entity_decode($row['post_desc']);
-    $cont = html_entity_decode($row['post_cont']);
+
+    $cont = html_entity_decode(nl2br($row['post_cont']));
     $date = $row['post_date'];
     $count = $row['post_count'];
 ?>
@@ -125,7 +126,7 @@
             if ($dbPostId == $postId)
             {
             echo "<div class='comment-entry'>";
-            echo "<p>Commented by $dbUserName $dbUserMail on $dbCommentDate</p>";
+            echo "<p><em>Commented by $dbUserName $dbUserMail on $dbCommentDate</em></p>";
             echo "<p>$dbText</p>";
             echo "</div>";
 
