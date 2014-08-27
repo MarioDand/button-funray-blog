@@ -48,7 +48,13 @@ function createPost($row) {
     echo "<div class='innerArticle clearfix'>";
     echo "<h4><a href='viewpost.php?id=$postId' class='postTitle'>$title</a></h4>";
     echo "<h2>$desc</h2>";
-    echo "<div class='divContent'>$cont</div>";
+    "<div class='divContent'>" ?>
+    <?php
+            if(strlen($cont) > 200) {
+           echo substr($cont, 0, 200)."...";
+            }else{
+                echo $cont;
+            } "</div>";
     echo "<p>$date</p>";
     echo "<p>Views: $count</p>";
     if (isset($_SESSION['user_name']) && $_SESSION['user_name'] && ($_SESSION['user_rights'] === 'admin')):
