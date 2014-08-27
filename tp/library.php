@@ -67,7 +67,7 @@ function createPost($row) {
 }
 
 function getQueries(&$query, &$checkquery, $offset) {
-    $testoff = $offset + 6;
+    $testoff = $offset + 5;
     if (isset($_GET['tag'])) {
         $tag = $_GET['tag'];
         $query = "SELECT * FROM posts WHERE post_tags
