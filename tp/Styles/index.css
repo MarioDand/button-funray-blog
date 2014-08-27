@@ -125,6 +125,7 @@ section {
     width: 50%;
     margin-left: 10%;
     float: left;
+    min-height: 300px;
 }
 
 .comment-input {

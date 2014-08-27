@@ -38,6 +38,7 @@
             echo "<p>$date</p>";
             echo "<p><em>Views: $count</em></p>";
             echo "</div>";
+
         if(isset($_SESSION['user_name']) && $_SESSION['user_name'] &&($_SESSION['user_rights']==='admin')):
             ?>
             <form action="deletePost.php" method="post">
@@ -56,8 +57,8 @@
     <?php
         error_reporting(E_ALL ^ E_NOTICE);
         $comment = trim($_POST['text-comments']);
-
-        $comment = html_entity_decode($comment);
+        $comment = htmlentities($comment);
+        $comment = addslashes($comment);
 
         $user_id = $_SESSION['user_id'];
         $user_name = $_SESSION['user_name'];
@@ -74,8 +75,8 @@
 
 
             <?php
-            $user_name = trim($_POST['user']);
-            $user_mail = trim($_POST['email']);
+            $user_name = addslashes(trim($_POST['user']));
+            $user_mail = addslashes(trim($_POST['email']));
 
             $user_id = 0;
             if (!$user_name){
@@ -85,7 +86,6 @@
 
         ?>
             <input id="submit" type="submit" value="Submit">
-
         </form>
         </section>
         <section id="published-comments">
@@ -108,9 +108,9 @@
         while ($row = $commentsValues->fetch(PDO::FETCH_ASSOC))
         {
             $commentId = $row['comment_id'];
-            $dbText = htmlentities($row['comment_content']);
+            $dbText = html_entity_decode($row['comment_content']);
             $dbPostId = $row['post_id'];
-            $dbUserName = $row['user_name'];
+            $dbUserName = htmlentities($row['user_name']);
             $dbUserMail = $row['user_mail'];
             if(!$dbUserMail) {
                 $dbUserMail = null;

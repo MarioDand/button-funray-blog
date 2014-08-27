@@ -33,9 +33,9 @@ if($_POST && isset($_POST["title"]) && isset($_POST["desc"])&& isset($_POST["con
 
 
     $post = new Post;
-    $post->title =  htmlentities($_POST['title']);
-    $post->desc =  htmlentities($_POST['desc']);
-    $post->content =  htmlentities($_POST['content']);
+    $post->title =  addslashes(htmlentities($_POST['title']));
+    $post->desc =  addslashes(htmlentities($_POST['desc']));
+    $post->content =  addslashes(htmlentities($_POST['content']));
 
     $post->date =   date('Y-m-d H:i:s');
 
