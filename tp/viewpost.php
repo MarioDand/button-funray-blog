@@ -31,8 +31,8 @@
                 setcookie($postId, 'count',  time()+(3600*24));
             }
 
-            echo "<div class='clearfix veiwDivPost'>";
-            echo "<p>$title</p>";
+            echo "<div class='viewpost'>";
+            echo "<p class='postTitle'>$title</p>";
             echo "<p>$desc</p>";
             echo "<p>$cont</p>";
             echo "<p>$date</p>";

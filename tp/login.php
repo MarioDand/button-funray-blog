@@ -1,27 +1,17 @@
-<!DOCTYPE html>
-    <html>
-    <head>
-        <title>Login</title>
-    </head>
-    <body>
-    <fieldset style="width: 30%">
-        <form method="post">
-            <input type="text" name="user" placeholder="Username"/>
-            <input type="password" name="pass" placeholder="Password"/>
-            <input type="submit">
-        </form>
-    </fieldset>
-    </body>
-    <head>
-
-    </head>
-    </html>
-
-
 <?php
 
 include "database.php";
 include "header.php";
+
+?>
+        <form method="post">
+            <label for="user"class="login">Log in:</label>
+            <input type="text" class="login" name="user" placeholder="Username"/>
+            <input type="password" class="login" name="pass" placeholder="Password"/>
+            <input type="submit" class="login">
+        </form>
+
+<?php
 
 if (!isset($_SESSION)) {
     session_start();
@@ -52,3 +42,4 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
         }
     }
 }
+include "footer.php";

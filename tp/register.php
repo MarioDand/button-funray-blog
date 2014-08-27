@@ -1,21 +1,23 @@
-<form method="post">
-    <label for="username">Username: </label>
-    <input type="text" id="username" name="name" required="required"/>
-
-    <label for="pass">Password: </label>
-    <input type="password" id="pass" name="pass" required="required"/>
-
-    <label for="confirm">Confirm Password: </label>
-    <input type='password' id="confirm" name='confPass' required="required"/>
-
-    <label for="email">Email: </label>
-    <input type="email" id="email" name="email" required="required"/>
-    <input type="submit" value="Register" required="required"/>
-</form>
-
 <?php
 include "database.php";
 include "header.php";
+?>
+<form method="post">
+    <label for="username" class="register">Username: </label>
+    <input type="text" class="register" id="username" name="name" required="required"/>
+
+    <label for="pass" class="register">Password: </label>
+    <input type="password" class="register" id="pass" name="pass" required="required"/>
+
+    <label for="confirm" class="register">Confirm Password:</label>
+    <input type='password' class="register" id="confirm" name='confPass' required="required"/>
+
+    <label for="email" class="register">Email: </label>
+    <input type="email" class="register" id="email" name="email" required="required"/>
+    <input type="submit" class="register" value="Register" required="required"/>
+</form>
+
+<?php
 
 class User
 {
@@ -109,4 +111,5 @@ function create_hash($value)
 {
     return $hash = crypt($value, '$2a$12$'.substr(str_replace('+', '.', base64_encode(sha1(microtime(true), true))), 0, 22));
 }
+include "footer.php"
 ?>

@@ -69,7 +69,7 @@ main {
     }
 
 .posts {
-    width: 78%;
+    width: 80%;
     margin: 2% 2%;
     float: left;
     border: 1px solid;
@@ -110,11 +110,15 @@ aside {
 }
 
 section {
-    padding-left: 20px;
     width: 80%;
     float: left;
 }
 
+.viewpost {
+    padding: 20px;
+    border: 1px solid grey;
+    margin: 20px;
+}
 
 #post-comments {
     width: 50%;
@@ -132,6 +136,12 @@ section {
 #published-comments {
     width: 65%;
     margin-left: 10%;
+}
+
+.comment-entry {
+    border: 1px solid grey;
+    margin: 5px;
+    padding: 5px;
 }
 
 .comment-input {
@@ -171,10 +181,19 @@ input[type=submit].inputs {
     line-height: 50px;
 }
 
-
-
 .tags-viewpost {
     position: absolute;
     float: right;
-    border: 1px solid black;
+}
+
+.register {
+    margin: 5px 20px;
+    display: block;
+    width: 20%;
+}
+
+.login {
+    margin: 5px 20px;
+    display: block;
+    width: 20%;
 }
