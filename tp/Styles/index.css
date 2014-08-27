@@ -109,6 +109,7 @@ aside {
     margin: 16px 32px;
 }
 
+<<<<<<< HEAD
 section {
     width: 80%;
     border: 1px solid;
@@ -120,6 +121,8 @@ section {
     margin-left: 30%;
 }
 
+=======
+>>>>>>> a07323a2ac21129e6cbf56900c080c57cc805053
 .inputs {
     margin: 1.5em;
     padding: 2em;
@@ -128,6 +131,10 @@ section {
 }
 
 textarea.inputs {
+<<<<<<< HEAD
+=======
+
+>>>>>>> a07323a2ac21129e6cbf56900c080c57cc805053
     height: 50em;
 }
 
@@ -137,6 +144,7 @@ input[type=submit].inputs {
     line-height: 50px;
 }
 
+<<<<<<< HEAD
 .comment-input {
     margin: 1em;
     padding: 1em;
@@ -150,3 +158,12 @@ input[type=submit].inputs {
     float: right;
     border: 1px solid black;
 }
+=======
+/*.comment-input {*/
+    /*margin: 1em;*/
+    /*padding: 1em;*/
+    /*display: block;*/
+    /*width: 50%;*/
+/*}*/
+
+>>>>>>> a07323a2ac21129e6cbf56900c080c57cc805053
